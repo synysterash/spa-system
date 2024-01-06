@@ -1,0 +1,31 @@
+name: spa-booking
+recipe: laravel
+
+config:
+  webroot: public
+  via: nginx
+  php: '7.4'
+  composer_version: 2
+  xdebug: true
+
+services:
+  appserver:
+    build:
+      - '[ ! -f ".env" ] && cp .env.example .env || echo ".env already present"'
+      - composer install
+    overrides:
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
+      depends_on:
+        - database
+  database:
+    type: postgres:14
+    creds:
+      database: spabooking
+    portforward: 5435
+
+tooling:
+  phpunit:
+    service: appserver
+    description: "Run phpunit test"
+    cmd: ./vendor/bin/phpunit
