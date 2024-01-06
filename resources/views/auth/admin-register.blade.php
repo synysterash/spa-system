@@ -5,11 +5,13 @@
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
-
+        <div class="my-4 text-center">
+            <x-label for="role" :value="__('Admin Registration')" />
+        </div>
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('admin.register') }}">
             @csrf
 
             <!-- Name -->
