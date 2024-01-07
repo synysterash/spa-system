@@ -16,6 +16,18 @@ use Illuminate\View\View;
 class RegisteredUserController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return View
+     */
+    public function index(Request $request): View
+    {
+        $user = User::all();
+        return view('users.index', compact('user'));
+    }
+
+    /**
      * Display the registration view.
      */
     public function create(): View
